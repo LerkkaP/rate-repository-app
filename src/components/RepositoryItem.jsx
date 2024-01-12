@@ -1,9 +1,8 @@
-import { Text, View } from "react-native-web";
+import { Text, View } from "react-native";
 
 const RepositoryItem = ({ repository }) => {
   return (
     <View>
-      {console.log(repository)}
       <Text>Full name: {repository.fullName}</Text>
       <Text>Description: {repository.description}</Text>
       <Text>Language: {repository.language}</Text>
