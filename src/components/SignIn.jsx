@@ -43,7 +43,6 @@ const SignIn = () => {
   const onSubmit = (values) => {
     const { username, password } = values;
     console.log(`Username: ${username}, Password: ${password}`);
-    console.log("testi");
   };
 
   return (
