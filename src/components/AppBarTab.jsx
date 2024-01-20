@@ -12,14 +12,22 @@ const styles = {
   },
 };
 
-const AppBarTab = ({ title, path }) => {
-  return (
-    <Pressable>
+const AppBarTab = ({ title, path, onPress }) => {
+  if (path) {
+    return (
       <Link to={path}>
         <Text style={styles.textPrimary} fontWeight="bold">
           {title}
         </Text>
       </Link>
+    );
+  }
+
+  return (
+    <Pressable onPress={onPress}>
+      <Text style={styles.textPrimary} fontWeight="bold">
+        {title}
+      </Text>
     </Pressable>
   );
 };
