@@ -1,6 +1,8 @@
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, Pressable, Linking } from "react-native";
 import RepositoryItemStats from "./RepositoryItemStats";
 import RepositoryItemInfo from "./RepositoryItemInfo";
+import theme from "../theme";
+import Text from "./Text";
 
 const styles = StyleSheet.create({
   container: {
@@ -17,6 +19,13 @@ const styles = StyleSheet.create({
   text: {
     marginLeft: 15,
     flex: 1,
+  },
+  button: {
+    backgroundColor: theme.colors.primary,
+    color: "white",
+    paddingVertical: 15,
+    borderRadius: 4,
+    textAlign: "center",
   },
 });
 
@@ -41,6 +50,13 @@ const RepositoryItem = ({ repository }) => {
           reviewCount={repository.reviewCount}
           ratingAverage={repository.ratingAverage}
         />
+        {repository.url && (
+          <Pressable onPress={() => Linking.openURL(repository.url)}>
+            <Text style={styles.button} fontWeight="bold">
+              Open in GitHub
+            </Text>
+          </Pressable>
+        )}
       </View>
     </View>
   );
