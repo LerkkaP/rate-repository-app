@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     backgroundColor: "white",
-    paddingLeft: 15,
+    paddingLeft: 10,
     paddingVertical: 25,
   },
   image: {
@@ -19,6 +19,12 @@ const styles = StyleSheet.create({
   text: {
     marginLeft: 15,
     flex: 1,
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: "center",
+    paddingTop: 10,
+    paddingRight: 60,
   },
   button: {
     backgroundColor: theme.colors.primary,
@@ -51,7 +57,10 @@ const RepositoryItem = ({ repository }) => {
           ratingAverage={repository.ratingAverage}
         />
         {repository.url && (
-          <Pressable onPress={() => Linking.openURL(repository.url)}>
+          <Pressable
+            style={styles.buttonContainer}
+            onPress={() => Linking.openURL(repository.url)}
+          >
             <Text style={styles.button} fontWeight="bold">
               Open in GitHub
             </Text>
