@@ -6,6 +6,7 @@ import useRepository from "../hooks/useRepository";
 import useReviews from "../hooks/useReviews";
 import theme from "../theme";
 import Text from "./Text";
+import formatDate from "../utils/formatDate";
 
 const styles = StyleSheet.create({
   container: {
@@ -32,12 +33,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ReviewItem = ({ review }) => {
-  const date = new Date(review.createdAt);
-  const formattedDate = `${date.getDate()}.${
-    date.getMonth() + 1
-  }.${date.getFullYear()}`;
-
+export const ReviewItem = ({ review }) => {
   return (
     <View style={styles.container}>
       <View style={styles.ratingContainer}>
@@ -47,7 +43,10 @@ const ReviewItem = ({ review }) => {
       </View>
       <View style={styles.textContainer}>
         <Text fontWeight="bold">{review.user.username}</Text>
-        <Text color="textSecondary">{formattedDate}</Text>
+        <Text color="textSecondary">
+          {" "}
+          {formatDate({ date: review.createdAt })}
+        </Text>
         <Text>{review.text}</Text>
       </View>
     </View>
