@@ -81,6 +81,7 @@ export const ME = gql`
         edges {
           node {
             id
+            repositoryId
             text
             rating
             createdAt

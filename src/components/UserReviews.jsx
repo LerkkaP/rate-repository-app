@@ -1,9 +1,11 @@
 import React from "react";
-import { View, StyleSheet } from "react-native-web";
+import { View, StyleSheet, Pressable } from "react-native-web";
 import useCurrentUser from "../hooks/useCurrentUser";
 import theme from "../theme";
 import Text from "./Text";
 import formatDate from "../utils/formatDate";
+import { useNavigate } from "react-router-native";
+import useDelete from "../hooks/useDelete";
 
 const styles = StyleSheet.create({
   container: {
@@ -28,11 +30,41 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  buttonRegular: {
+    backgroundColor: theme.colors.primary,
+    alignSelf: "flex-start",
+    color: "white",
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    borderRadius: 2,
+    marginTop: 4
+  },
+  buttonDanger: {
+    backgroundColor: "red",
+    alignSelf: "flex-start",
+    color: "white",
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    borderRadius: 2,
+    marginTop: 4,
+    marginLeft: 8
+  }
 });
 
 export const UserReviews = () => {
   const bool = true;
-  const { reviews } = useCurrentUser({ bool });
+  const { reviews, refetch } = useCurrentUser({ bool });
+  const navigate = useNavigate();
+  const deleteReview = useDelete();
+  
+  const handleView = (id) => {
+    navigate(`/${id}`);
+  }
+
+  const handleDelete = async (id) => {
+    await deleteReview({ id });
+    refetch();
+  }
 
   return (
     <>
@@ -40,7 +72,7 @@ export const UserReviews = () => {
         <View>
           {reviews.edges.map((edge) => {
             const { node } = edge;
-            const { id, text, rating, createdAt, repository } = node;
+            const { id, repositoryId, text, rating, createdAt, repository } = node;
 
             return (
               <View key={id} style={styles.container}>
@@ -60,6 +92,18 @@ export const UserReviews = () => {
                     {formatDate({ date: createdAt })}
                   </Text>
                   <Text>{text}</Text>
+                  <View style={{flexDirection: "row"}}>
+                    <Pressable onPress={() => handleView(repositoryId)}>
+                      <Text style={styles.buttonRegular} >
+                        View repository
+                      </Text>
+                    </Pressable>
+                    <Pressable onPress={() => handleDelete(id)}>
+                      <Text style={styles.buttonDanger} >
+                        Delete review
+                      </Text>
+                    </Pressable>
+                  </View>
                 </View>
               </View>
             );
