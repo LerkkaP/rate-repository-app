@@ -43,7 +43,6 @@ const RepositoryList = () => {
   const [filter, setFilter] = useState("CREATED_AT");
   const [searchQuery, setSearchQuery] = useState("");
   const [debounceSearch] = useDebounce(searchQuery, 500);
-  console.log(debounceSearch);
   const { repositories } = useRepositories({
     selectedRepository,
     direction,
@@ -51,7 +50,7 @@ const RepositoryList = () => {
   });
 
   return (
-    <>
+    <View>
       <FlatList
         ListHeaderComponent={
           <View>
@@ -83,7 +82,7 @@ const RepositoryList = () => {
         }
       />
       <RepositoryListContainer repositories={repositories} />
-    </>
+    </View>
   );
 };
 

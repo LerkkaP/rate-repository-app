@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingLeft: 15,
     paddingVertical: 25,
-    marginTop: 10,
   },
   textContainer: {
     flex: 1,
@@ -31,7 +30,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  separator: {
+    height: 10,
+  },
 });
+
+const ItemSeparator = () => <View style={styles.separator} />;
 
 export const ReviewItem = ({ review }) => {
   return (
@@ -44,7 +48,6 @@ export const ReviewItem = ({ review }) => {
       <View style={styles.textContainer}>
         <Text fontWeight="bold">{review.user.username}</Text>
         <Text color="textSecondary">
-          {" "}
           {formatDate({ date: review.createdAt })}
         </Text>
         <Text>{review.text}</Text>
@@ -72,7 +75,7 @@ const SingleRepository = () => {
     <FlatList
       data={reviewNodes}
       renderItem={({ item }) => <ReviewItem review={item} />}
-      keyExtractor={({ id }) => id}
+      ItemSeparatorComponent={ItemSeparator}
       ListHeaderComponent={() => <RepositoryItem repository={repository} />}
     />
   );
